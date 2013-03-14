@@ -7,10 +7,15 @@
 // It simply has an op= which asserts on invalid HRESULTs.
 struct HResultWrapper
 {
-	HResultWrapper& operator=(HRESULT HResult)
-	{
-		_ASSERTE(SUCCEEDED(HResult));
+    HResultWrapper& operator=(HRESULT HResult)
+    {
+        if(FAILED(HResult))
+        {
+            // Not the most optimal solution, but you still see the failing line
+            // from the call stack :) TODO: make better
+            _CrtDbgBreak();
+        }
 
-		return *this;
-	}
+        return *this;
+    }
 };

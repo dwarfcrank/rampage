@@ -54,7 +54,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -131,16 +131,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComPtrDef.h" />
+    <ClInclude Include="D3DHelpers.h" />
     <ClInclude Include="GraphicsDevice.h" />
     <ClInclude Include="HResultWrapper.h" />
     <ClInclude Include="Rampage.h" />
+    <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="D3DHelpers.cpp" />
     <ClCompile Include="GraphicsDevice.cpp" />
     <ClCompile Include="Rampage.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Test|Win32'">Create</PrecompiledHeader>

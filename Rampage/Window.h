@@ -17,7 +17,6 @@ public:
     void SetTitle(const wchar_t* Title);
 
 	void SetContextPointer(void* Context);
-	void* GetContextPointer();
 
     void SetWindowProcedure(WindowProcedure WndProc);
 

@@ -2,7 +2,11 @@
 //
 
 #include "stdafx.h"
+
+#include <memory>
+
 #include "Window.h"
+#include "GraphicsDevice.h"
 
 static LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam,
 								   void* Context)
@@ -15,7 +19,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 					   _In_ LPTSTR    lpCmdLine,
 					   _In_ int       nCmdShow)
 {
-	Window* w = Window::Create(1280, 720, L"Rampage", WindowProc);
+	std::unique_ptr<Window> window(Window::Create(1280, 720, L"Rampage", WindowProc));
+	std::unique_ptr<GraphicsDevice> gfxDevice(GraphicsDevice::Create(window.get()));
 
 	MSG msg;
 	while(true)

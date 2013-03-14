@@ -122,3 +122,8 @@ LRESULT CALLBACK Window::StaticWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 
 	return window->m_WindowProcedure(hWnd, uMsg, wParam, lParam, window->m_WindowProcedureContext);
 }
+
+HWND Window::GetHandle()
+{
+	return m_WindowHandle;
+}

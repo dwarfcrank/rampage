@@ -15,7 +15,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 					   _In_ LPTSTR    lpCmdLine,
 					   _In_ int       nCmdShow)
 {
-	Window* w = Window::Create(1280, 720, L"Asdf", WindowProc);
+	Window* w = Window::Create(1280, 720, L"Rampage", WindowProc);
 
 	MSG msg;
 	while(true)

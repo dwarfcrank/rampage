@@ -1,0 +1,7 @@
+ipch/*
+Debug/*
+Rampage/Debug/*
+*.sdf
+*.opensdf
+*.suo
+*.user

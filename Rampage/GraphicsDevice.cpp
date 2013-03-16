@@ -61,17 +61,17 @@ void GraphicsDevice::InitializeD3D(Window* OutputWindow)
 
     m_Helpers.Device = m_Device;
 
-    InitBackbufferRenderTarget();
+    InitRenderContext();
 }
 
-void GraphicsDevice::InitBackbufferRenderTarget()
+RenderTarget* GraphicsDevice::InitBackbufferRenderTarget()
 {
     ID3D11Texture2DPtr backbuffer;
     HResultWrapper hr;
 
     hr = m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&backbuffer));
     
-    m_BackbufferRT.reset(RenderTarget::Create(m_Device, backbuffer));
+    return RenderTarget::Create(m_Device, backbuffer);
 }
 
 GraphicsDevice* GraphicsDevice::Create(Window* OutputWindow)
@@ -83,13 +83,13 @@ GraphicsDevice* GraphicsDevice::Create(Window* OutputWindow)
     return gfxDevice.release();
 }
 
-void GraphicsDevice::BeginFrame()
+void GraphicsDevice::InitRenderContext()
 {
-    float color[] = { 0.1f, 0.2f, 0.3f, 1.0f };
-    m_BackbufferRT->Clear(m_ImmediateContext, color);
+    auto backbufferRT = InitBackbufferRenderTarget();
+    m_RenderContext.reset(new RenderContext(m_ImmediateContext, m_SwapChain, backbufferRT));
 }
 
-void GraphicsDevice::EndFrame()
+RenderContext* GraphicsDevice::GetRenderContext()
 {
-    m_SwapChain->Present(0, 0);
+    return m_RenderContext.get();
 }

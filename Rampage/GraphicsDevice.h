@@ -3,6 +3,7 @@
 #include <d3d11.h>
 #include "ComPtrDef.h"
 #include "RenderTarget.h"
+#include "RenderContext.h"
 #include "D3DHelpers.h"
 
 class Window;
@@ -21,14 +22,17 @@ public:
     /// <returns>   null if it fails, else the created graphics device. </returns>
     static GraphicsDevice* Create(Window* OutputWindow);
 
-    void BeginFrame();
-    void EndFrame();
+    RenderContext* GetRenderContext();   
 
 private:
     GraphicsDevice(void);
 
     void InitializeD3D(Window* OutputWindow);
-    void InitBackbufferRenderTarget();
+    RenderTarget* InitBackbufferRenderTarget();
+
+    void InitRenderContext();
+
+    std::unique_ptr<RenderContext> m_RenderContext;
 
     ID3D11DevicePtr m_Device;
     ID3D11DeviceContextPtr m_ImmediateContext;

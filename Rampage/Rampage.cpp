@@ -7,6 +7,7 @@
 
 #include "Window.h"
 #include "GraphicsDevice.h"
+#include "RenderContext.h"
 
 static LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam,
                                    void* Context)
@@ -21,6 +22,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 {
     std::unique_ptr<Window> window(Window::Create(1280, 720, L"Rampage", WindowProc));
     std::unique_ptr<GraphicsDevice> gfxDevice(GraphicsDevice::Create(window.get()));
+    
+    auto renderContext = gfxDevice->GetRenderContext();
 
     MSG msg;
     while(true)
@@ -32,8 +35,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {
-            gfxDevice->BeginFrame();
-            gfxDevice->EndFrame();
+            renderContext->BeginFrame();
+            renderContext->EndFrame();
         }
     }
 

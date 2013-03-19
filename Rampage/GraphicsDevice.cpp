@@ -71,7 +71,8 @@ RenderTarget* GraphicsDevice::InitBackbufferRenderTarget()
 
     hr = m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&backbuffer));
     
-    return RenderTarget::Create(m_Device, backbuffer);
+    // The backbuffer won't be used as a shader resource, so don't create an SRV from it.
+    return RenderTarget::Create(m_Device, backbuffer, RT_NOT_SHADER_RESOURCE);
 }
 
 GraphicsDevice* GraphicsDevice::Create(Window* OutputWindow)
@@ -92,4 +93,20 @@ void GraphicsDevice::InitRenderContext()
 RenderContext* GraphicsDevice::GetRenderContext()
 {
     return m_RenderContext.get();
+}
+
+RenderTarget* GraphicsDevice::CreateGBuffer(int Width, int Height)
+{
+    std::unique_ptr<RenderTarget> ret;
+
+    DXGI_FORMAT bufferFormats[] =
+    {
+        DXGI_FORMAT_R8G8B8A8_UNORM,
+        DXGI_FORMAT_R8G8B8A8_UNORM,
+    };
+
+    ret.reset(RenderTarget::Create(m_Device, Width, Height, NUM_GBUFFER_RENDER_TARGETS, bufferFormats,
+        RT_CREATE_DEPTH_STENCIL));
+
+    return ret.release();
 }

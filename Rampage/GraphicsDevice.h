@@ -22,7 +22,9 @@ public:
     /// <returns>   null if it fails, else the created graphics device. </returns>
     static GraphicsDevice* Create(Window* OutputWindow);
 
-    RenderContext* GetRenderContext();   
+    RenderContext* GetRenderContext();
+
+    RenderTarget* CreateGBuffer(int Width, int Height);
 
 private:
     GraphicsDevice(void);

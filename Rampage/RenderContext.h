@@ -17,9 +17,15 @@ public:
 
     void BindBackbufferRenderTarget();
 
+    void BindRenderTarget(RenderTarget* Target);
+    void BindRenderTargetAsShaderResource(RenderTarget* Target);
+
 private:
     ID3D11DeviceContextPtr m_DeviceContext;
     IDXGISwapChainPtr m_SwapChain;
     std::unique_ptr<RenderTarget> m_BackbufferRT;
+    
+    RenderTarget* m_ActiveRenderTarget;
+    RenderTarget* m_ActiveRenderTargetSRV;
 };
 

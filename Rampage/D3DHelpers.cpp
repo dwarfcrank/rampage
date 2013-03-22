@@ -50,3 +50,33 @@ ID3D11ShaderResourceViewPtr D3DHelpers::CreateShaderResourceView(ID3D11Resource*
 
     return result;
 }
+
+ID3D11VertexShaderPtr D3DHelpers::CreateVertexShader(ID3DBlob* ShaderData)
+{
+    return CreateVertexShader(ShaderData->GetBufferPointer(), ShaderData->GetBufferSize());
+}
+
+ID3D11VertexShaderPtr D3DHelpers::CreateVertexShader(const void* Bytecode, int BytecodeSize)
+{
+    HResultWrapper hr;
+    ID3D11VertexShaderPtr result;
+
+    hr = Device->CreateVertexShader(Bytecode, BytecodeSize, nullptr, &result);
+
+    return result;
+}
+
+ID3D11PixelShaderPtr D3DHelpers::CreatePixelShader(ID3DBlob* ShaderData)
+{
+    return CreatePixelShader(ShaderData->GetBufferPointer(), ShaderData->GetBufferSize());
+}
+
+ID3D11PixelShaderPtr D3DHelpers::CreatePixelShader(const void* Bytecode, int BytecodeSize)
+{
+    HResultWrapper hr;
+    ID3D11PixelShaderPtr result;
+
+    hr = Device->CreatePixelShader(Bytecode, BytecodeSize, nullptr, &result);
+
+    return result;
+}

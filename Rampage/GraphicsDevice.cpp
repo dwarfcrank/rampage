@@ -110,3 +110,17 @@ RenderTarget* GraphicsDevice::CreateGBuffer(int Width, int Height)
 
     return ret.release();
 }
+
+PixelShader* GraphicsDevice::CreatePixelShader(const void* ShaderData, int ShaderDataSize)
+{
+    auto result = m_Helpers.CreatePixelShader(ShaderData, ShaderDataSize);
+    
+    return new PixelShader(result);
+}
+
+VertexShader* GraphicsDevice::CreateVertexShader(const void* ShaderData, int ShaderDataSize)
+{
+    auto result = m_Helpers.CreateVertexShader(ShaderData, ShaderDataSize);
+    
+    return new VertexShader(result);
+}

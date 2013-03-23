@@ -67,3 +67,13 @@ void RenderContext::EndFrame()
 {
     m_SwapChain->Present(0, 0);
 }
+
+void RenderContext::SetPixelShader(PixelShader* Shader)
+{
+    m_DeviceContext->PSSetShader(Shader->GetShader(), nullptr, 0);
+}
+
+void RenderContext::SetVertexShader(VertexShader* Shader)
+{
+    m_DeviceContext->VSSetShader(Shader->GetShader(), nullptr, 0);
+}

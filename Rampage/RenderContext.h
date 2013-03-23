@@ -4,6 +4,8 @@
 #include <memory>
 #include "ComPtrDef.h"
 #include "RenderTarget.h"
+#include "VertexShader.h"
+#include "PixelShader.h"
 
 class RenderContext
 {
@@ -16,6 +18,9 @@ public:
     void EndFrame();
 
     void BindBackbufferRenderTarget();
+    
+    void SetPixelShader(PixelShader* Shader);
+    void SetVertexShader(VertexShader* Shader);
 
     void BindRenderTarget(RenderTarget* Target);
     void BindRenderTargetAsShaderResource(RenderTarget* Target);

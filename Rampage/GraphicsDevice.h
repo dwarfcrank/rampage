@@ -4,6 +4,8 @@
 #include "ComPtrDef.h"
 #include "RenderTarget.h"
 #include "RenderContext.h"
+#include "PixelShader.h"
+#include "VertexShader.h"
 #include "D3DHelpers.h"
 
 class Window;
@@ -25,6 +27,9 @@ public:
     RenderContext* GetRenderContext();
 
     RenderTarget* CreateGBuffer(int Width, int Height);
+
+    PixelShader* CreatePixelShader(const void* ShaderData, int ShaderDataSize);
+    VertexShader* CreateVertexShader(const void* ShaderData, int ShaderDataSize);
 
 private:
     GraphicsDevice(void);

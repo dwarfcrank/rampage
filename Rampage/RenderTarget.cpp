@@ -183,7 +183,7 @@ void RenderTarget::Clear(ID3D11DeviceContext* DeviceContext, const float Color[4
 
     if(m_DepthStencilView)
     {
-        DeviceContext->ClearDepthStencilView(m_DepthStencilView, 0, 0.0f, 0);
+        DeviceContext->ClearDepthStencilView(m_DepthStencilView, 0, 1.0f, 0);
     }
 }
 

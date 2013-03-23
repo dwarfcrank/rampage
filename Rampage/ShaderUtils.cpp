@@ -22,7 +22,18 @@ static void LoadFile(const wchar_t* Path, char** Buffer, int* Size)
     auto data = new char[filesize];
     *Buffer = data;
 
-    ReadFile(file, data, filesize, nullptr, nullptr);
+    DWORD bytesRead;
+    ReadFile(file, data, filesize, &bytesRead, nullptr);
+
+    if(bytesRead != filesize)
+    {
+        delete[] data;
+        
+        *Buffer = nullptr;
+        *Size = -1;
+
+        return;
+    }
 
     CloseHandle(file);
 }

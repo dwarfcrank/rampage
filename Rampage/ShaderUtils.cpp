@@ -8,6 +8,14 @@ static void LoadFile(const wchar_t* Path, char** Buffer, int* Size)
     auto file = CreateFile(Path, GENERIC_READ, FILE_SHARE_READ, nullptr,
         OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 
+    if(file == INVALID_HANDLE_VALUE)
+    {
+        *Buffer = nullptr;
+        *Size = -1;
+
+        return;
+    }
+
     auto filesize = GetFileSize(file, nullptr);
     *Size = static_cast<int>(filesize);
 
@@ -26,6 +34,12 @@ PixelShader* LoadPixelShader(const wchar_t* Path, GraphicsDevice* Device)
     int size;
 
     LoadFile(Path, &buf, &size);
+
+    if(!buf)
+    {
+        return nullptr;
+    }
+
     buffer.reset(buf);
 
     return Device->CreatePixelShader(buffer.get(), size);
@@ -38,6 +52,12 @@ VertexShader* LoadVertexShader(const wchar_t* Path, GraphicsDevice* Device)
     int size;
 
     LoadFile(Path, &buf, &size);
+
+    if(!buf)
+    {
+        return nullptr;
+    }
+
     buffer.reset(buf);
 
     return Device->CreateVertexShader(buffer.get(), size);

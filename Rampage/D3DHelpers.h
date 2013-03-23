@@ -28,6 +28,9 @@ struct D3DHelpers
 
     ID3D11PixelShaderPtr CreatePixelShader(ID3DBlob* ShaderData);
     ID3D11PixelShaderPtr CreatePixelShader(const void* Bytecode, int BytecodeSize);
+
+    ID3D11BufferPtr CreateBuffer(const D3D11_BUFFER_DESC& Desc,
+                                 const D3D11_SUBRESOURCE_DATA* InitialData = nullptr);
                                     
     // Not a smart pointer - we don't need to hold a reference to the device.
     ID3D11Device* Device;

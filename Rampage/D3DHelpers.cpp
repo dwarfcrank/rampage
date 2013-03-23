@@ -80,3 +80,13 @@ ID3D11PixelShaderPtr D3DHelpers::CreatePixelShader(const void* Bytecode, int Byt
 
     return result;
 }
+
+ID3D11BufferPtr D3DHelpers::CreateBuffer(const D3D11_BUFFER_DESC& Desc, const D3D11_SUBRESOURCE_DATA* InitialData)
+{
+    HResultWrapper hr;
+    ID3D11BufferPtr result;
+
+    hr = Device->CreateBuffer(&Desc, InitialData, &result);
+
+    return result;
+}

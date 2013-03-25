@@ -8,6 +8,12 @@
 #include "PixelShader.h"
 #include "VertexBuffer.h"
 
+enum InputLayoutIndex
+{
+    IL_MESH = 0,
+    NUM_INPUT_LAYOUTS
+};
+
 class RenderContext
 {
 public:
@@ -31,11 +37,15 @@ public:
     void Draw(int VertexCount);
 
 private:
+    void InitInputLayouts();
+
     ID3D11DeviceContextPtr m_DeviceContext;
     IDXGISwapChainPtr m_SwapChain;
     std::unique_ptr<RenderTarget> m_BackbufferRT;
     
     RenderTarget* m_ActiveRenderTarget;
     RenderTarget* m_ActiveRenderTargetSRV;
+
+    ID3D11InputLayoutPtr m_InputLayouts[NUM_INPUT_LAYOUTS];
 };
 

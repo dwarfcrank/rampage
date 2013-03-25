@@ -23,20 +23,24 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 {
     std::unique_ptr<Window> window(Window::Create(1280, 720, L"Rampage", WindowProc));
     std::unique_ptr<GraphicsDevice> gfxDevice(GraphicsDevice::Create(window.get()));
-    
+    std::unique_ptr<PixelShader> ps(LoadPixelShader(L"TestPS.cso", gfxDevice.get()));
+    std::unique_ptr<VertexShader> vs(LoadVertexShader(L"DummyMeshVS.cso", gfxDevice.get()));
     auto renderContext = gfxDevice->GetRenderContext();
 
     float vertices[] =
     {
         // Upper left corner
-        -1.0f, 1.0f, 0.5f, 1.0f,
+        -1.0f, 1.0f, 0.5f, //1.0f,
         // Lower right corner
-        1.0f, -1.0f, 0.5f, 1.0f,
+        1.0f, -1.0f, 0.5f, //1.0f,
         // Lower left corner
-        -1.0f, -1.0f, 0.5f, 1.0f,
+        -1.0f, -1.0f, 0.5f, //1.0f,
     };
 
     auto buffer = gfxDevice->CreateVertexBuffer(3, 12, vertices);
+    renderContext->SetPixelShader(ps.get());
+    renderContext->SetVertexShader(vs.get());
+    renderContext->BindVertexBuffers(1, &buffer);
 
     MSG msg;
     while(true)
@@ -49,6 +53,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
         else
         {
             renderContext->BeginFrame();
+            renderContext->BindBackbufferRenderTarget();
+            renderContext->Draw(3);
             renderContext->EndFrame();
         }
     }

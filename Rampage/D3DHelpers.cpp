@@ -90,3 +90,15 @@ ID3D11BufferPtr D3DHelpers::CreateBuffer(const D3D11_BUFFER_DESC& Desc, const D3
 
     return result;
 }
+
+ID3D11InputLayoutPtr D3DHelpers::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* InputElements, 
+                                                   int InputElementCount, const void* ShaderBytecode, 
+                                                   int ShaderBytecodeSize)
+{
+    HResultWrapper hr;
+    ID3D11InputLayoutPtr ret;
+
+    hr = Device->CreateInputLayout(InputElements, InputElementCount, ShaderBytecode, ShaderBytecodeSize, &ret);
+
+    return ret;
+}

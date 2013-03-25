@@ -94,12 +94,18 @@
     <ClCompile Include="VertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="InputLayouts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FullScreenPassVS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
     <FxCompile Include="TestPS.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="DummyMeshVS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

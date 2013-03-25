@@ -17,3 +17,7 @@
 #include <memory.h>
 #include <tchar.h>
 #include <crtdbg.h>
+
+// D3D includes
+#include <d3d11.h>
+#include "ComPtrDef.h"

@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClCompile Include="D3DHelpers.cpp" />
     <ClCompile Include="GraphicsDevice.cpp" />
+    <ClCompile Include="InputLayouts.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="Rampage.cpp" />
     <ClCompile Include="RenderContext.cpp" />
@@ -166,6 +167,11 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="DummyMeshVS.hlsl">
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename)</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).h</HeaderFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="FullScreenPassVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>

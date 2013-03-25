@@ -8,6 +8,7 @@ RenderContext::RenderContext(ID3D11DeviceContextPtr DeviceContext, IDXGISwapChai
     m_BackbufferRT(BackbufferRenderTarget),
     m_ActiveRenderTarget(nullptr)
 {
+    InitInputLayouts();
 }
 
 RenderContext::~RenderContext(void)
@@ -95,6 +96,7 @@ void RenderContext::BindVertexBuffers(int Count, VertexBuffer** Buffers)
 
 void RenderContext::Draw(int VertexCount)
 {
+    m_DeviceContext->IASetInputLayout(m_InputLayouts[0]);
     m_DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     m_DeviceContext->Draw(VertexCount, 0);
 }

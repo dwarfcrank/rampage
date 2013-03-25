@@ -32,6 +32,10 @@ struct D3DHelpers
     ID3D11BufferPtr CreateBuffer(const D3D11_BUFFER_DESC& Desc,
                                  const D3D11_SUBRESOURCE_DATA* InitialData = nullptr);
                                     
+    ID3D11InputLayoutPtr CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* InputElements,
+        int InputElementCount, const void* ShaderBytecode, int ShaderBytecodeSize);
+
+
     // Not a smart pointer - we don't need to hold a reference to the device.
     ID3D11Device* Device;
 };

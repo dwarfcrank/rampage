@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "GraphicsDevice.h"
 #include "RenderContext.h"
+#include "ShaderUtils.h"
 
 static LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam,
                                    void* Context)
@@ -24,6 +25,18 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
     std::unique_ptr<GraphicsDevice> gfxDevice(GraphicsDevice::Create(window.get()));
     
     auto renderContext = gfxDevice->GetRenderContext();
+
+    float vertices[] =
+    {
+        // Upper left corner
+        -1.0f, 1.0f, 0.5f, 1.0f,
+        // Lower right corner
+        1.0f, -1.0f, 0.5f, 1.0f,
+        // Lower left corner
+        -1.0f, -1.0f, 0.5f, 1.0f,
+    };
+
+    auto buffer = gfxDevice->CreateVertexBuffer(3, 12, vertices);
 
     MSG msg;
     while(true)

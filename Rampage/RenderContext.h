@@ -6,6 +6,7 @@
 #include "RenderTarget.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
+#include "VertexBuffer.h"
 
 class RenderContext
 {
@@ -24,6 +25,10 @@ public:
 
     void BindRenderTarget(RenderTarget* Target);
     void BindRenderTargetAsShaderResource(RenderTarget* Target);
+
+    void BindVertexBuffers(int Count, VertexBuffer** Buffers);
+
+    void Draw(int VertexCount);
 
 private:
     ID3D11DeviceContextPtr m_DeviceContext;

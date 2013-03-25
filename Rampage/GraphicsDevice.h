@@ -7,6 +7,7 @@
 #include "PixelShader.h"
 #include "VertexShader.h"
 #include "D3DHelpers.h"
+#include "VertexBuffer.h"
 
 class Window;
 
@@ -30,6 +31,9 @@ public:
 
     PixelShader* CreatePixelShader(const void* ShaderData, int ShaderDataSize);
     VertexShader* CreateVertexShader(const void* ShaderData, int ShaderDataSize);
+
+    // Note: Size is in _elements_
+    VertexBuffer* CreateVertexBuffer(int Size, int Stride, const void* Data);
 
 private:
     GraphicsDevice(void);

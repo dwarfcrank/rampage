@@ -124,3 +124,17 @@ VertexShader* GraphicsDevice::CreateVertexShader(const void* ShaderData, int Sha
     
     return new VertexShader(result);
 }
+
+VertexBuffer* GraphicsDevice::CreateVertexBuffer(int Size, int Stride, const void* Data)
+{
+    CD3D11_BUFFER_DESC desc(Size * Stride, D3D11_BIND_VERTEX_BUFFER);
+    D3D11_SUBRESOURCE_DATA data;
+
+    data.pSysMem = Data;
+    data.SysMemPitch = 0;
+    data.SysMemSlicePitch = 0;
+
+    ID3D11BufferPtr buffer = m_Helpers.CreateBuffer(desc, &data);
+
+    return new VertexBuffer(buffer, Size, Stride);
+}

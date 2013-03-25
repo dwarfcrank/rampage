@@ -77,3 +77,24 @@ void RenderContext::SetVertexShader(VertexShader* Shader)
 {
     m_DeviceContext->VSSetShader(Shader->GetShader(), nullptr, 0);
 }
+
+void RenderContext::BindVertexBuffers(int Count, VertexBuffer** Buffers)
+{
+    ID3D11Buffer* buffers[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
+    UINT strides[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
+    UINT offsets[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT] = { 0 };
+
+    for(int i = 0; i < Count; i++)
+    {
+        buffers[i] = Buffers[i]->GetBuffer();
+        strides[i] = Buffers[i]->GetStride();
+    }
+
+    m_DeviceContext->IASetVertexBuffers(0, Count, buffers, strides, offsets);
+}
+
+void RenderContext::Draw(int VertexCount)
+{
+    m_DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    m_DeviceContext->Draw(VertexCount, 0);
+}

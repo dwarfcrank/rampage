@@ -13,7 +13,7 @@ struct InputLayoutDesc
     int InputElementCount;
 
     // Shader bytecode is for input layout validation
-    const void* ShaderBytecode;
+    const BYTE* ShaderBytecode;
     int ShaderBytecodeSize;
 };
 
@@ -34,9 +34,9 @@ void RenderContext::InitInputLayouts()
     for(int i = 0; i < NUM_INPUT_LAYOUTS; i++)
     {
         const InputLayoutDesc& layoutDesc = layouts[i];
+        ArrayRef<D3D11_INPUT_ELEMENT_DESC> inputElements(layoutDesc.InputElements, layoutDesc.InputElementCount);
+        ArrayRef<BYTE> shaderBytecode(layoutDesc.ShaderBytecode, layoutDesc.ShaderBytecodeSize);
 
-        m_InputLayouts[i] = helpers.CreateInputLayout(
-            layoutDesc.InputElements, layoutDesc.InputElementCount,
-            layoutDesc.ShaderBytecode, layoutDesc.ShaderBytecodeSize);
+        m_InputLayouts[i] = helpers.CreateInputLayout(inputElements, shaderBytecode);
     }
 }

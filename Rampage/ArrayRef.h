@@ -7,13 +7,14 @@
 //
 //===----------------------------------------------------------------------===//
 
+// Changes made in Rampage:
+// - Remove SmallVector dependency
+// - Remove llvm namespace
+
 #ifndef LLVM_ADT_ARRAYREF_H
 #define LLVM_ADT_ARRAYREF_H
 
-#include "llvm/ADT/SmallVector.h"
 #include <vector>
-
-namespace llvm {
 
   /// ArrayRef - Represent a constant reference to an array (0 or more elements
   /// consecutively in memory), i.e. a start pointer and a length.  It allows
@@ -58,14 +59,6 @@ namespace llvm {
     /// Construct an ArrayRef from a range.
     ArrayRef(const T *begin, const T *end)
       : Data(begin), Length(end - begin) {}
-
-    /// Construct an ArrayRef from a SmallVector. This is templated in order to
-    /// avoid instantiating SmallVectorTemplateCommon<T> whenever we
-    /// copy-construct an ArrayRef.
-    template<typename U>
-    /*implicit*/ ArrayRef(const SmallVectorTemplateCommon<T, U> &Vec)
-      : Data(Vec.data()), Length(Vec.size()) {
-    }
 
     /// Construct an ArrayRef from a std::vector.
     template<typename A>
@@ -182,10 +175,6 @@ namespace llvm {
     /// Construct an MutableArrayRef from a range.
     MutableArrayRef(T *begin, T *end) : ArrayRef<T>(begin, end) {}
     
-    /// Construct an MutableArrayRef from a SmallVector.
-    /*implicit*/ MutableArrayRef(SmallVectorImpl<T> &Vec)
-    : ArrayRef<T>(Vec) {}
-    
     /// Construct a MutableArrayRef from a std::vector.
     /*implicit*/ MutableArrayRef(std::vector<T> &Vec)
     : ArrayRef<T>(Vec) {}
@@ -255,18 +244,6 @@ namespace llvm {
     return ArrayRef<T>(begin, end);
   }
 
-  /// Construct an ArrayRef from a SmallVector.
-  template <typename T>
-  ArrayRef<T> makeArrayRef(const SmallVectorImpl<T> &Vec) {
-    return Vec;
-  }
-
-  /// Construct an ArrayRef from a SmallVector.
-  template <typename T, unsigned N>
-  ArrayRef<T> makeArrayRef(const SmallVector<T, N> &Vec) {
-    return Vec;
-  }
-
   /// Construct an ArrayRef from a std::vector.
   template<typename T>
   ArrayRef<T> makeArrayRef(const std::vector<T> &Vec) {
@@ -300,6 +277,5 @@ namespace llvm {
   template <typename T> struct isPodLike<ArrayRef<T> > {
     static const bool value = true;
   };
-}
   
 #endif

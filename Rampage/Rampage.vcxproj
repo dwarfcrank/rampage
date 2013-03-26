@@ -133,6 +133,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArrayRef.h" />
     <ClInclude Include="ComPtrDef.h" />
     <ClInclude Include="D3DHelpers.h" />
     <ClInclude Include="GraphicsDevice.h" />

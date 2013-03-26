@@ -38,7 +38,7 @@ static void LoadFile(const wchar_t* Path, char** Buffer, int* Size)
     CloseHandle(file);
 }
 
-PixelShader* LoadPixelShader(const wchar_t* Path, GraphicsDevice* Device)
+std::unique_ptr<PixelShader> LoadPixelShader(const wchar_t* Path, GraphicsDevice* Device)
 {
     std::unique_ptr<char[]> buffer;
     char* buf;
@@ -56,7 +56,7 @@ PixelShader* LoadPixelShader(const wchar_t* Path, GraphicsDevice* Device)
     return Device->CreatePixelShader(buffer.get(), size);
 }
 
-VertexShader* LoadVertexShader(const wchar_t* Path, GraphicsDevice* Device)
+std::unique_ptr<VertexShader> LoadVertexShader(const wchar_t* Path, GraphicsDevice* Device)
 {
     std::unique_ptr<char[]> buffer;
     char* buf;

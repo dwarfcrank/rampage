@@ -33,7 +33,7 @@ public:
     void BindRenderTarget(RenderTarget* Target);
     void BindRenderTargetAsShaderResource(RenderTarget* Target);
 
-    void BindVertexBuffers(int Count, VertexBuffer** Buffers);
+    void BindVertexBuffers(ArrayRef<std::unique_ptr<VertexBuffer>> Buffers);
     void BindIndexBuffer(IndexBuffer* Buffer);
 
     void Draw(int VertexCount);

@@ -4,6 +4,9 @@
 #include "HResultWrapper.h"
 #include "Window.h"
 
+// Just to make lines a bit shorter..
+using std::unique_ptr;
+
 GraphicsDevice::GraphicsDevice(void)
 {
 }
@@ -75,13 +78,13 @@ RenderTarget* GraphicsDevice::InitBackbufferRenderTarget()
     return RenderTarget::Create(m_Device, backbuffer, RT_NOT_SHADER_RESOURCE);
 }
 
-GraphicsDevice* GraphicsDevice::Create(Window* OutputWindow)
+unique_ptr<GraphicsDevice> GraphicsDevice::Create(Window* OutputWindow)
 {
-    std::unique_ptr<GraphicsDevice> gfxDevice(new GraphicsDevice());
+    unique_ptr<GraphicsDevice> gfxDevice(new GraphicsDevice());
 
     gfxDevice->InitializeD3D(OutputWindow);
 
-    return gfxDevice.release();
+    return gfxDevice;
 }
 
 void GraphicsDevice::InitRenderContext()
@@ -95,9 +98,9 @@ RenderContext* GraphicsDevice::GetRenderContext()
     return m_RenderContext.get();
 }
 
-RenderTarget* GraphicsDevice::CreateGBuffer(int Width, int Height)
+unique_ptr<RenderTarget> GraphicsDevice::CreateGBuffer(int Width, int Height)
 {
-    std::unique_ptr<RenderTarget> ret;
+    unique_ptr<RenderTarget> ret;
 
     DXGI_FORMAT bufferFormats[] =
     {
@@ -108,24 +111,24 @@ RenderTarget* GraphicsDevice::CreateGBuffer(int Width, int Height)
     ret.reset(RenderTarget::Create(m_Device, Width, Height, ArrayRef<DXGI_FORMAT>(bufferFormats,
         NUM_GBUFFER_RENDER_TARGETS), RT_CREATE_DEPTH_STENCIL));
 
-    return ret.release();
+    return ret;
 }
 
-PixelShader* GraphicsDevice::CreatePixelShader(const void* ShaderData, int ShaderDataSize)
+unique_ptr<PixelShader> GraphicsDevice::CreatePixelShader(const void* ShaderData, int ShaderDataSize)
 {
     auto result = m_Helpers.CreatePixelShader(ShaderData, ShaderDataSize);
     
-    return new PixelShader(result);
+    return unique_ptr<PixelShader>(new PixelShader(result));
 }
 
-VertexShader* GraphicsDevice::CreateVertexShader(const void* ShaderData, int ShaderDataSize)
+unique_ptr<VertexShader> GraphicsDevice::CreateVertexShader(const void* ShaderData, int ShaderDataSize)
 {
     auto result = m_Helpers.CreateVertexShader(ShaderData, ShaderDataSize);
     
-    return new VertexShader(result);
+    return unique_ptr<VertexShader>(new VertexShader(result));
 }
 
-VertexBuffer* GraphicsDevice::CreateVertexBuffer(int Size, int Stride, const void* Data)
+unique_ptr<VertexBuffer> GraphicsDevice::CreateVertexBuffer(int Size, int Stride, const void* Data)
 {
     CD3D11_BUFFER_DESC desc(Size * Stride, D3D11_BIND_VERTEX_BUFFER);
     D3D11_SUBRESOURCE_DATA data;
@@ -136,10 +139,10 @@ VertexBuffer* GraphicsDevice::CreateVertexBuffer(int Size, int Stride, const voi
 
     ID3D11BufferPtr buffer = m_Helpers.CreateBuffer(desc, &data);
 
-    return new VertexBuffer(buffer, Size, Stride);
+    return unique_ptr<VertexBuffer>(new VertexBuffer(buffer, Size, Stride));
 }
 
-IndexBuffer* GraphicsDevice::CreateIndexBuffer(ArrayRef<unsigned int> Data) 
+unique_ptr<IndexBuffer> GraphicsDevice::CreateIndexBuffer(ArrayRef<unsigned int> Data) 
 {
     CD3D11_BUFFER_DESC desc(Data.size() * sizeof(unsigned int), D3D11_BIND_INDEX_BUFFER);
     D3D11_SUBRESOURCE_DATA data;
@@ -150,5 +153,5 @@ IndexBuffer* GraphicsDevice::CreateIndexBuffer(ArrayRef<unsigned int> Data)
 
     ID3D11BufferPtr buffer = m_Helpers.CreateBuffer(desc, &data);
 
-    return new IndexBuffer(buffer, Data.size());
+    return unique_ptr<IndexBuffer>(new IndexBuffer(buffer, Data.size()));
 }

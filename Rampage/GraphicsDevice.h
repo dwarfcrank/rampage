@@ -24,18 +24,18 @@ public:
     /// <param name="OutputWindow"> [in] The render output window. </param>
     ///
     /// <returns>   null if it fails, else the created graphics device. </returns>
-    static GraphicsDevice* Create(Window* OutputWindow);
+    static std::unique_ptr<GraphicsDevice> Create(Window* OutputWindow);
 
     RenderContext* GetRenderContext();
 
-    RenderTarget* CreateGBuffer(int Width, int Height);
+    std::unique_ptr<RenderTarget> CreateGBuffer(int Width, int Height);
 
-    PixelShader* CreatePixelShader(const void* ShaderData, int ShaderDataSize);
-    VertexShader* CreateVertexShader(const void* ShaderData, int ShaderDataSize);
+    std::unique_ptr<PixelShader> CreatePixelShader(const void* ShaderData, int ShaderDataSize);
+    std::unique_ptr<VertexShader> CreateVertexShader(const void* ShaderData, int ShaderDataSize);
 
     // Note: Size is in _elements_
-    VertexBuffer* CreateVertexBuffer(int Size, int Stride, const void* Data);
-    IndexBuffer* CreateIndexBuffer(ArrayRef<unsigned int> Data);
+    std::unique_ptr<VertexBuffer> CreateVertexBuffer(int Size, int Stride, const void* Data);
+    std::unique_ptr<IndexBuffer> CreateIndexBuffer(ArrayRef<unsigned int> Data);
 
 private:
     GraphicsDevice(void);

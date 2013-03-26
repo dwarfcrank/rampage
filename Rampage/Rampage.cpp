@@ -25,6 +25,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
     std::unique_ptr<GraphicsDevice> gfxDevice(GraphicsDevice::Create(window.get()));
     std::unique_ptr<PixelShader> ps(LoadPixelShader(L"TestPS.cso", gfxDevice.get()));
     std::unique_ptr<VertexShader> vs(LoadVertexShader(L"DummyMeshVS.cso", gfxDevice.get()));
+    auto gbuffer = gfxDevice->CreateGBuffer(1280, 720);
     auto renderContext = gfxDevice->GetRenderContext();
 
     float vertices[] =
@@ -47,8 +48,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
         _countof(indices)));
     renderContext->SetPixelShader(ps.get());
     renderContext->SetVertexShader(vs.get());
-    renderContext->BindVertexBuffers(1, &buffer);
-    renderContext->BindIndexBuffer(indexbuffer);
+    renderContext->BindVertexBuffers(ArrayRef<std::unique_ptr<VertexBuffer>>(&buffer, 1));
+    renderContext->BindIndexBuffer(indexbuffer.get());
 
     MSG msg;
     while(true)

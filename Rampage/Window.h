@@ -16,14 +16,14 @@ public:
 
     void SetTitle(const wchar_t* Title);
 
-	void SetContextPointer(void* Context);
+    void SetContextPointer(void* Context);
 
     void SetWindowProcedure(WindowProcedure WndProc);
 
     HWND GetHandle();
 
-    static Window* Create(int Width, int Height, const wchar_t* Title, WindowProcedure WindowProc,
-		void* Context = nullptr);
+    static std::unique_ptr<Window> Create(int Width, int Height, const wchar_t* Title, 
+        WindowProcedure WindowProc, void* Context = nullptr);
 
 private:
     static void SetupWindowClass();

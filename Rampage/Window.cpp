@@ -22,8 +22,8 @@ void Window::SetupWindowClass()
     _ASSERT(RegisterClassEx(&wcex));
 }
 
-Window* Window::Create(int Width, int Height, const wchar_t* Title, WindowProcedure WindowProc, 
-                       void* Context)
+std::unique_ptr<Window> Window::Create(int Width, int Height, const wchar_t* Title,
+                                       WindowProcedure WindowProc, void* Context)
 {
     std::unique_ptr<Window> window(new Window());
 
@@ -52,7 +52,7 @@ Window* Window::Create(int Width, int Height, const wchar_t* Title, WindowProced
     ShowWindow(windowhandle, SW_SHOW);
     UpdateWindow(windowhandle);
 
-    return window.release();
+    return window;
 }
 
 void Window::SetWindowProcedure(WindowProcedure WndProc)

@@ -85,7 +85,7 @@ void RenderContext::BindVertexBuffers( ArrayRef<std::unique_ptr<VertexBuffer>> B
     UINT strides[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
     UINT offsets[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT] = { 0 };
 
-    for(int i = 0; i < Buffers.size(); i++)
+    for(size_t i = 0; i < Buffers.size(); i++)
     {
         buffers[i] = Buffers[i]->GetBuffer();
         strides[i] = Buffers[i]->GetStride();

@@ -7,6 +7,7 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 enum InputLayoutIndex
 {
@@ -33,6 +34,7 @@ public:
     void BindRenderTargetAsShaderResource(RenderTarget* Target);
 
     void BindVertexBuffers(int Count, VertexBuffer** Buffers);
+    void BindIndexBuffer(IndexBuffer* Buffer);
 
     void Draw(int VertexCount);
 

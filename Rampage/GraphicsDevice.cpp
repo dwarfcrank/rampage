@@ -138,3 +138,17 @@ VertexBuffer* GraphicsDevice::CreateVertexBuffer(int Size, int Stride, const voi
 
     return new VertexBuffer(buffer, Size, Stride);
 }
+
+IndexBuffer* GraphicsDevice::CreateIndexBuffer(ArrayRef<unsigned int> Data) 
+{
+    CD3D11_BUFFER_DESC desc(Data.size() * sizeof(unsigned int), D3D11_BIND_INDEX_BUFFER);
+    D3D11_SUBRESOURCE_DATA data;
+
+    data.pSysMem = Data.data();
+    data.SysMemPitch = 0;
+    data.SysMemSlicePitch = 0;
+
+    ID3D11BufferPtr buffer = m_Helpers.CreateBuffer(desc, &data);
+
+    return new IndexBuffer(buffer, Data.size());
+}

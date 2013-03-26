@@ -138,6 +138,7 @@
     <ClInclude Include="D3DHelpers.h" />
     <ClInclude Include="GraphicsDevice.h" />
     <ClInclude Include="HResultWrapper.h" />
+    <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="Rampage.h" />
     <ClInclude Include="RenderContext.h" />
@@ -152,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="D3DHelpers.cpp" />
     <ClCompile Include="GraphicsDevice.cpp" />
+    <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputLayouts.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="Rampage.cpp" />

@@ -98,5 +98,10 @@ void RenderContext::Draw(int VertexCount)
 {
     m_DeviceContext->IASetInputLayout(m_InputLayouts[0]);
     m_DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-    m_DeviceContext->Draw(VertexCount, 0);
+    m_DeviceContext->DrawIndexed(3, 0, 0);
+}
+
+void RenderContext::BindIndexBuffer(IndexBuffer* Buffer)
+{
+    m_DeviceContext->IASetIndexBuffer(Buffer->GetBuffer(), DXGI_FORMAT_R32_UINT, 0);
 }

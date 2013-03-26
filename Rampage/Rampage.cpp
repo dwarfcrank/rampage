@@ -37,10 +37,18 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
         -1.0f, -1.0f, 0.5f, //1.0f,
     };
 
+    UINT indices[] =
+    {
+        0, 1, 2,
+    };
+
     auto buffer = gfxDevice->CreateVertexBuffer(3, 12, vertices);
+    auto indexbuffer = gfxDevice->CreateIndexBuffer(ArrayRef<unsigned int>(indices,
+        _countof(indices)));
     renderContext->SetPixelShader(ps.get());
     renderContext->SetVertexShader(vs.get());
     renderContext->BindVertexBuffers(1, &buffer);
+    renderContext->BindIndexBuffer(indexbuffer);
 
     MSG msg;
     while(true)

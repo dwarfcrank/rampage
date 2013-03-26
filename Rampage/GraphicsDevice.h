@@ -8,6 +8,7 @@
 #include "VertexShader.h"
 #include "D3DHelpers.h"
 #include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 class Window;
 
@@ -34,6 +35,7 @@ public:
 
     // Note: Size is in _elements_
     VertexBuffer* CreateVertexBuffer(int Size, int Stride, const void* Data);
+    IndexBuffer* CreateIndexBuffer(ArrayRef<unsigned int> Data);
 
 private:
     GraphicsDevice(void);

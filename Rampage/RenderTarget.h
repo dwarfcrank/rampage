@@ -5,6 +5,7 @@
 #include <d3d11.h>
 
 #include "ComPtrDef.h"
+#include "ArrayRef.h"
 
 enum RenderTargetCreateFlags
 {
@@ -31,8 +32,8 @@ public:
     static RenderTarget* Create(ID3D11Device* Device, ID3D11Texture2D* Texture, UINT Flags = 0,
         ID3D11Texture2D* DepthTexture = nullptr);
 
-    static RenderTarget* Create(ID3D11Device* Device, int Width, int Height, int NumTextures,
-        const DXGI_FORMAT* TextureFormats, UINT Flags = 0);
+    static RenderTarget* Create(ID3D11Device* Device, int Width, int Height, 
+        ArrayRef<DXGI_FORMAT> TextureFormats, UINT Flags = 0);
 
     void Bind(ID3D11DeviceContext* DeviceContext);
     void BindAsShaderResource(ID3D11DeviceContext* DeviceContext);

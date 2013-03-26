@@ -105,8 +105,8 @@ RenderTarget* GraphicsDevice::CreateGBuffer(int Width, int Height)
         DXGI_FORMAT_R8G8B8A8_UNORM,
     };
 
-    ret.reset(RenderTarget::Create(m_Device, Width, Height, NUM_GBUFFER_RENDER_TARGETS, bufferFormats,
-        RT_CREATE_DEPTH_STENCIL));
+    ret.reset(RenderTarget::Create(m_Device, Width, Height, ArrayRef<DXGI_FORMAT>(bufferFormats,
+        NUM_GBUFFER_RENDER_TARGETS), RT_CREATE_DEPTH_STENCIL));
 
     return ret.release();
 }

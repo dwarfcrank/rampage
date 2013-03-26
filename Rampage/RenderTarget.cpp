@@ -72,13 +72,13 @@ RenderTarget* RenderTarget::Create(ID3D11Device* Device, ID3D11Texture2D* Textur
     return renderTarget.release();
 }
 
-RenderTarget* RenderTarget::Create(ID3D11Device* Device, int Width, int Height, int NumTextures,
-                                   const DXGI_FORMAT* TextureFormats, UINT Flags) 
+RenderTarget* RenderTarget::Create(ID3D11Device* Device, int Width, int Height, ArrayRef<DXGI_FORMAT> TextureFormats, 
+                                   UINT Flags) 
 {
     D3DHelpers helpers(Device);
     std::unique_ptr<RenderTarget> renderTarget(new RenderTarget());
 
-    renderTarget->m_RenderTargetViews.reserve(NumTextures);
+    renderTarget->m_RenderTargetViews.reserve(TextureFormats.size());
     
     CD3D11_TEXTURE2D_DESC textureDesc(DXGI_FORMAT_UNKNOWN, Width, Height);
     textureDesc.BindFlags = D3D11_BIND_RENDER_TARGET;
@@ -86,11 +86,11 @@ RenderTarget* RenderTarget::Create(ID3D11Device* Device, int Width, int Height, 
     bool createSRVs = !(Flags & RT_NOT_SHADER_RESOURCE);
     if(createSRVs)
     {
-        renderTarget->m_ShaderResourceViews.reserve(NumTextures);
+        renderTarget->m_ShaderResourceViews.reserve(TextureFormats.size());
         textureDesc.BindFlags |= D3D11_BIND_SHADER_RESOURCE;
     }
 
-    for(int i = 0; i < NumTextures; i++)
+    for(size_t i = 0; i < TextureFormats.size(); i++)
     {
         textureDesc.Format = TextureFormats[i];
 

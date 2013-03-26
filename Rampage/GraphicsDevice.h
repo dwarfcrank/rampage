@@ -56,3 +56,10 @@ private:
     D3D_FEATURE_LEVEL m_CurrentFeatureLevel;
 };
 
+// This function is separate from the GraphicsDevice class, because the class will
+// be hidden behind an interface class later.
+template<typename TVertex>
+VertexBuffer* CreateVertexBuffer(GraphicsDevice* Device, ArrayRef<TVertex> Vertices)
+{
+    return Device->CreateVertexBuffer(Vertices.size(), sizeof(TVertex), Vertices.data());
+}

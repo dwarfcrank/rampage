@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ComPtrDef.h"
+#include "ArrayRef.h"
 
 /// <summary>
 ///     Basic wrapper class for ID3D11Device to simplify resource creation. Instead of returning
@@ -23,17 +24,17 @@ struct D3DHelpers
     ID3D11ShaderResourceViewPtr CreateShaderResourceView(ID3D11Resource* Resource,
                                                          const D3D11_SHADER_RESOURCE_VIEW_DESC* Desc = nullptr);
 
-    ID3D11VertexShaderPtr CreateVertexShader(ID3DBlob* ShaderData);
+    ID3D11VertexShaderPtr CreateVertexShader(ArrayRef<BYTE> Bytecode);
     ID3D11VertexShaderPtr CreateVertexShader(const void* Bytecode, int BytecodeSize);
 
-    ID3D11PixelShaderPtr CreatePixelShader(ID3DBlob* ShaderData);
+    ID3D11PixelShaderPtr CreatePixelShader(ArrayRef<BYTE> Bytecode);
     ID3D11PixelShaderPtr CreatePixelShader(const void* Bytecode, int BytecodeSize);
 
     ID3D11BufferPtr CreateBuffer(const D3D11_BUFFER_DESC& Desc,
                                  const D3D11_SUBRESOURCE_DATA* InitialData = nullptr);
                                     
-    ID3D11InputLayoutPtr CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* InputElements,
-        int InputElementCount, const void* ShaderBytecode, int ShaderBytecodeSize);
+    ID3D11InputLayoutPtr CreateInputLayout(ArrayRef<D3D11_INPUT_ELEMENT_DESC> InputElements,
+        ArrayRef<BYTE> ShaderBytecode);
 
 
     // Not a smart pointer - we don't need to hold a reference to the device.

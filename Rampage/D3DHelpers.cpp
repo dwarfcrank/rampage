@@ -51,9 +51,9 @@ ID3D11ShaderResourceViewPtr D3DHelpers::CreateShaderResourceView(ID3D11Resource*
     return result;
 }
 
-ID3D11VertexShaderPtr D3DHelpers::CreateVertexShader(ID3DBlob* ShaderData)
+ID3D11VertexShaderPtr D3DHelpers::CreateVertexShader(ArrayRef<BYTE> Bytecode)
 {
-    return CreateVertexShader(ShaderData->GetBufferPointer(), ShaderData->GetBufferSize());
+    return CreateVertexShader(Bytecode.data(), Bytecode.size());
 }
 
 ID3D11VertexShaderPtr D3DHelpers::CreateVertexShader(const void* Bytecode, int BytecodeSize)
@@ -66,9 +66,9 @@ ID3D11VertexShaderPtr D3DHelpers::CreateVertexShader(const void* Bytecode, int B
     return result;
 }
 
-ID3D11PixelShaderPtr D3DHelpers::CreatePixelShader(ID3DBlob* ShaderData)
+ID3D11PixelShaderPtr D3DHelpers::CreatePixelShader(ArrayRef<BYTE> Bytecode)
 {
-    return CreatePixelShader(ShaderData->GetBufferPointer(), ShaderData->GetBufferSize());
+    return CreatePixelShader(Bytecode.data(), Bytecode.size());
 }
 
 ID3D11PixelShaderPtr D3DHelpers::CreatePixelShader(const void* Bytecode, int BytecodeSize)
@@ -91,14 +91,14 @@ ID3D11BufferPtr D3DHelpers::CreateBuffer(const D3D11_BUFFER_DESC& Desc, const D3
     return result;
 }
 
-ID3D11InputLayoutPtr D3DHelpers::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* InputElements, 
-                                                   int InputElementCount, const void* ShaderBytecode, 
-                                                   int ShaderBytecodeSize)
+ID3D11InputLayoutPtr D3DHelpers::CreateInputLayout(ArrayRef<D3D11_INPUT_ELEMENT_DESC> InputElements,
+                                                   ArrayRef<BYTE> ShaderBytecode)
 {
     HResultWrapper hr;
     ID3D11InputLayoutPtr ret;
 
-    hr = Device->CreateInputLayout(InputElements, InputElementCount, ShaderBytecode, ShaderBytecodeSize, &ret);
+    hr = Device->CreateInputLayout(InputElements.data(), InputElements.size(),
+        ShaderBytecode.data(), ShaderBytecode.size(), &ret);
 
     return ret;
 }

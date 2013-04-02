@@ -105,3 +105,32 @@ void RenderContext::BindIndexBuffer(IndexBuffer* Buffer)
 {
     m_DeviceContext->IASetIndexBuffer(Buffer->GetBuffer(), DXGI_FORMAT_R32_UINT, 0);
 }
+
+void RenderContext::SetPixelShaderConstantBuffers(ArrayRef<ConstantBufferBase*> ConstantBuffers)
+{
+    ID3D11Buffer* buffers[D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT];
+
+    for(size_t i = 0; i < ConstantBuffers.size(); i++)
+    {
+        buffers[i] = ConstantBuffers[i]->GetBuffer();
+    }
+
+    m_DeviceContext->PSSetConstantBuffers(0, ConstantBuffers.size(), buffers);
+}
+
+void RenderContext::SetVertexShaderConstantBuffers(ArrayRef<ConstantBufferBase*> ConstantBuffers)
+{
+    ID3D11Buffer* buffers[D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT];
+
+    for(size_t i = 0; i < ConstantBuffers.size(); i++)
+    {
+        buffers[i] = ConstantBuffers[i]->GetBuffer();
+    }
+
+    m_DeviceContext->VSSetConstantBuffers(0, ConstantBuffers.size(), buffers);
+}
+
+void RenderContext::UpdateConstantBuffer(ConstantBufferBase* Buffer)
+{
+    Buffer->Update(m_DeviceContext);
+}

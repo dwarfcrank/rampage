@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="ArrayRef.h" />
     <ClInclude Include="ComPtrDef.h" />
+    <ClInclude Include="ConstantBufferBase.h" />
     <ClInclude Include="D3DHelpers.h" />
     <ClInclude Include="GraphicsDevice.h" />
     <ClInclude Include="HResultWrapper.h" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ConstantBufferBase.cpp" />
     <ClCompile Include="D3DHelpers.cpp" />
     <ClCompile Include="GraphicsDevice.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />

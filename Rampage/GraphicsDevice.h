@@ -9,6 +9,7 @@
 #include "D3DHelpers.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "ConstantBufferBase.h"
 
 class Window;
 
@@ -36,6 +37,8 @@ public:
     // Note: Size is in _elements_
     std::unique_ptr<VertexBuffer> CreateVertexBuffer(int Size, int Stride, const void* Data);
     std::unique_ptr<IndexBuffer> CreateIndexBuffer(ArrayRef<unsigned int> Data);
+
+    std::unique_ptr<ConstantBufferBase> CreateConstantBuffer(int Size);
 
 private:
     GraphicsDevice(void);

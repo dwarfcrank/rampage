@@ -155,3 +155,23 @@ unique_ptr<IndexBuffer> GraphicsDevice::CreateIndexBuffer(ArrayRef<unsigned int>
 
     return unique_ptr<IndexBuffer>(new IndexBuffer(buffer, Data.size()));
 }
+
+static void AdjustConstantBufferSize(int* Size)
+{
+    if(*Size % 16 != 0)
+    {
+        *Size = ((*Size / 16) + 1) * 16;
+    }
+}
+
+unique_ptr<ConstantBufferBase> GraphicsDevice::CreateConstantBuffer(int Size)
+{
+    AdjustConstantBufferSize(&Size);
+
+    CD3D11_BUFFER_DESC desc(Size, D3D11_BIND_CONSTANT_BUFFER, D3D11_USAGE_DYNAMIC,
+        D3D11_CPU_ACCESS_WRITE);
+
+    ID3D11BufferPtr buffer = m_Helpers.CreateBuffer(desc);
+
+    return unique_ptr<ConstantBufferBase>(new ConstantBufferBase(buffer, Size));
+}

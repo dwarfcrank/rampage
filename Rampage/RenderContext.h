@@ -8,6 +8,7 @@
 #include "PixelShader.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "ConstantBufferBase.h"
 
 enum InputLayoutIndex
 {
@@ -28,13 +29,18 @@ public:
     void BindBackbufferRenderTarget();
     
     void SetPixelShader(PixelShader* Shader);
+    void SetPixelShaderConstantBuffers(ArrayRef<ConstantBufferBase*> ConstantBuffers);
+
     void SetVertexShader(VertexShader* Shader);
+    void SetVertexShaderConstantBuffers(ArrayRef<ConstantBufferBase*> ConstantBuffers);
 
     void BindRenderTarget(RenderTarget* Target);
     void BindRenderTargetAsShaderResource(RenderTarget* Target);
 
     void BindVertexBuffers(ArrayRef<std::unique_ptr<VertexBuffer>> Buffers);
     void BindIndexBuffer(IndexBuffer* Buffer);
+
+    void UpdateConstantBuffer(ConstantBufferBase* Buffer);
 
     void Draw(int VertexCount);
 
